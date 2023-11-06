@@ -57,6 +57,8 @@ public class InputService {
             ConsoleLogger.writeLog(InputService.class.getName(),Level.SEVERE, e.getMessage());
         }
 
+
+
         return new DTO(numberOfRequests,mapOfIpAdress,countOf404);
 
 
@@ -94,8 +96,8 @@ public class InputService {
 
         for (String ofIpAdress : listOfIpAdress) {
             if (Objects.equals(str, ofIpAdress)){
-                mapOfIpAdress.compute(str,(k,v) -> (int)v+1);
-
+//
+                mapOfIpAdress.put(ofIpAdress,mapOfIpAdress.get(ofIpAdress)+1);
             }
         }
 
@@ -104,5 +106,12 @@ public class InputService {
 
 
 
+    }
+
+
+
+    private static Integer addNumber(Object n){
+
+        return (Integer)n+1;
     }
 }

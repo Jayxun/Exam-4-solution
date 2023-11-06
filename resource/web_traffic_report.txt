@@ -1,0 +1,6 @@
+Jami so'rovlar soni - 4 ta
+Jami 404 statusi bo'yicha so'rovlar soni - 1 ta
+
+10.0.0.5 - 1 marta qatnashgan
+192.168.1.100 - 1 marta qatnashgan
+172.16.0.2 - 1 marta qatnashgan

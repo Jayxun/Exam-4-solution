@@ -23,11 +23,25 @@ public class OutputService {
 
         try {
             bufferedWriter.write("Jami so'rovlar soni - "+dto.getNumberOfRequests()+" ta\n");
-            bufferedWriter.write("Jami 404 statusi bo'yicha so'rovlar soni - "+dto.getNumberOf404Requests()+" ta");
+            bufferedWriter.write("Jami 404 statusi bo'yicha so'rovlar soni - "+dto.getNumberOf404Requests()+" ta\n\n");
+
+            dto.getNumberOfIpAdress().forEach((k,v) -> {
+                try {
+                    bufferedWriter.write(k+" - "+v+ " marta qatnashgan\n");
+                } catch (IOException e) {
+                    ConsoleLogger.writeLog(OutputService.class.getName(), Level.SEVERE, e.getMessage());
+                }
+            });
+
         } catch (IOException e) {
             ConsoleLogger.writeLog(OutputService.class.getName(), Level.SEVERE, e.getMessage());
         }
 
+        try {
+            bufferedWriter.close();
+        } catch (IOException e) {
+            ConsoleLogger.writeLog(OutputService.class.getName(), Level.SEVERE, e.getMessage());
+        }
 
 
     }
