@@ -8,8 +8,9 @@ public class DTO {
     private Map<String,Integer> numberOfIpAdress;
     private int numberOf404Requests;
 
-    public DTO(int numberOfRequests, int numberOfIpAdress, int numberOf404Requests) {
+    public DTO(int numberOfRequests, Map<String, Integer> numberOfIpAdress, int numberOf404Requests) {
         this.numberOfRequests = numberOfRequests;
+        this.numberOfIpAdress=numberOfIpAdress;
         this.numberOf404Requests = numberOf404Requests;
     }
 
