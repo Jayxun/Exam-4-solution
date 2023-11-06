@@ -27,6 +27,9 @@ public class InputService {
             try {
                 while ((nextLine=bufferedReader.readLine())!=null) {
 
+
+
+
                 }
             } catch (IOException e) {
                 ConsoleLogger.writeLog(InputService.class.getName(), Level.SEVERE,e.getMessage());
