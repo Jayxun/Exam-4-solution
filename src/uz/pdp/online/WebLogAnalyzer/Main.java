@@ -2,6 +2,7 @@ package uz.pdp.online.WebLogAnalyzer;
 
 import uz.pdp.online.WebLogAnalyzer.dto.DTO;
 import uz.pdp.online.WebLogAnalyzer.service.InputService;
+import uz.pdp.online.WebLogAnalyzer.service.OutputService;
 
 import java.util.Date;
 
@@ -15,6 +16,11 @@ public class Main {
         */
         DTO dto = InputService.getResult();
 
+        OutputService.run(dto);
+
+        System.out.println("Dastur yakunlandi. \n" +
+                "Biroz qo'shimcha qo'shardim ammo vaqt cheklangan ekan." +
+                "\n Hurmat ila Jayxunbey");
 
 
 

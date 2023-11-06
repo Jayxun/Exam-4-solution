@@ -51,6 +51,12 @@ public class InputService {
             System.out.println(k+" - "+v+ " ta");
         });*/
 
+        try {
+            bufferedReader.close();
+        } catch (IOException e) {
+            ConsoleLogger.writeLog(InputService.class.getName(),Level.SEVERE, e.getMessage());
+        }
+
         return new DTO(numberOfRequests,mapOfIpAdress,countOf404);
 
 
@@ -95,6 +101,7 @@ public class InputService {
 
         listOfIpAdress.add(str);
         mapOfIpAdress.put(str, 1);
+
 
 
     }
