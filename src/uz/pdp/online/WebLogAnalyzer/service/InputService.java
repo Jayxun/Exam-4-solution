@@ -1,5 +1,6 @@
 package uz.pdp.online.WebLogAnalyzer.service;
 
+import uz.pdp.online.WebLogAnalyzer.dto.DTO;
 import uz.pdp.online.WebLogAnalyzer.logging.ConsoleLogger;
 
 import java.io.BufferedReader;
@@ -20,11 +21,11 @@ public class InputService {
     private static int numberOfRequests;
     private static int countOf404;
 
-    public static void getResult() {
+    public static DTO getResult() {
 
         FileReader fileReader = null;
         try {
-            fileReader = new FileReader("resource/acces.txt");
+            fileReader = new FileReader("resource/access.txt");
         } catch (FileNotFoundException e) {
             ConsoleLogger.writeLog(InputService.class.getName(), Level.SEVERE, e.getMessage());
         }
@@ -37,6 +38,7 @@ public class InputService {
         try {
             while ((nextLine = bufferedReader.readLine()) != null) {
 
+                numberOfRequests++;
                 calculateNumberOf404(nextLine);
                 calculateIpAdress(nextLine);
 
@@ -45,18 +47,37 @@ public class InputService {
             ConsoleLogger.writeLog(InputService.class.getName(), Level.SEVERE, e.getMessage());
         }
 
+        /*mapOfIpAdress.forEach((k,v) -> {
+            System.out.println(k+" - "+v+ " ta");
+        });*/
+
+        return new DTO(numberOfRequests,mapOfIpAdress,countOf404);
+
+
     }
 
     private static void calculateNumberOf404(String nextLine) {
 
+        Pattern pattern = Pattern.compile("\\d{3}.$");
 
+        Matcher matcher = pattern.matcher(nextLine);
+        String str=null;
 
+        if (matcher.find()) {
+            str=matcher.group();
+        }
+        str = str.substring(0,str.length()-1);
+
+        if (str.equals("404"))
+        {
+            countOf404++;
+        }
 
     }
 
     private static void calculateIpAdress(String nextLine) {
 
-        Pattern pattern = Pattern.compile("^\\[\\d.+\\.\\d.+\\.\\d.+\\.\\d.+]");
+        Pattern pattern = Pattern.compile("\\d+[.]\\d+[.]\\d+[.]\\d+");
 
         Matcher matcher = pattern.matcher(nextLine);
         String str=null;
@@ -67,12 +88,14 @@ public class InputService {
 
         for (String ofIpAdress : listOfIpAdress) {
             if (Objects.equals(str, ofIpAdress)){
-                mapOfIpAdress.put(str,(mapOfIpAdress.get(ofIpAdress)+1));
+                mapOfIpAdress.compute(str,(k,v) -> (int)v+1);
+
             }
         }
 
-        mapOfIpAdress.put(str,1);
-        return;
+        listOfIpAdress.add(str);
+        mapOfIpAdress.put(str, 1);
+
 
     }
 }
